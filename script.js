@@ -46,6 +46,7 @@ let apple = {
     color: "red",
     position: initPosition(),
 }
+//menambahbuah
 let apple2 = {
     color: "red",
     position: initPosition(),
