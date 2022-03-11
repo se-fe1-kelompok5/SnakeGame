@@ -10,7 +10,7 @@ const DIRECTION = {
     DOWN: 3,
 }
 const MOVE_INTERVAL = 150;
-
+ 
 function initPosition() {
     return {
         x: Math.floor(Math.random() * WIDTH),
