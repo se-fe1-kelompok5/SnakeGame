@@ -46,7 +46,7 @@ let apple = {
     color: "red",
     position: initPosition(),
 }
-//menambahbuah
+//menambah 2 buah
 let apple2 = {
     color: "red",
     position: initPosition(),
