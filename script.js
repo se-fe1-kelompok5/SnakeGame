@@ -18,7 +18,6 @@ function initPosition() {
     }
 }
 
-
 function initHeadAndBody() {
     let head = initPosition();
     let body = [{x: head.x, y: head.y}];
