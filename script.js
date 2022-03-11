@@ -9,8 +9,9 @@ const DIRECTION = {
     UP: 2,
     DOWN: 3,
 }
-const MOVE_INTERVAL = 150;
- 
+
+var MOVE_INTERVAL = 150;
+
 function initPosition() {
     return {
         x: Math.floor(Math.random() * WIDTH),
@@ -45,7 +46,6 @@ let apple = {
     color: "red",
     position: initPosition(),
 }
-//menambah 2 buah
 let apple2 = {
     color: "red",
     position: initPosition(),
@@ -125,6 +125,7 @@ function moveLeft(snake) {
     teleport(snake);
     eat(snake, apple);
     eat(snake, apple2);
+    leveling(snake);
 }
 
 function moveRight(snake) {
@@ -132,6 +133,7 @@ function moveRight(snake) {
     teleport(snake);
     eat(snake, apple);
     eat(snake, apple2);
+    leveling(snake);
 }
 
 function moveDown(snake) {
@@ -139,6 +141,7 @@ function moveDown(snake) {
     teleport(snake);
     eat(snake, apple);
     eat(snake, apple2);
+    leveling(snake);
 }
 
 function moveUp(snake) {
@@ -146,6 +149,7 @@ function moveUp(snake) {
     teleport(snake);
     eat(snake, apple);
     eat(snake, apple2);
+    leveling(snake);
 }
 
 function checkCollision(snakes) {
@@ -189,6 +193,30 @@ function move(snake) {
         }, MOVE_INTERVAL);
     } else {
         initGame();
+    }
+}
+
+// fungsi leveling
+// default kecepatan adalah 150 dan akan berkurang 25 seiring bertambah level
+function leveling(snake){
+    // mengambil id dari nomor level
+    let level;
+    level = document.getElementById("level");
+    if(snake.score >= 6 && snake.score <=10){
+        MOVE_INTERVAL = 125;
+        level.innerHTML = "Level 2";
+    } else if(snake.score >= 11 && snake.score <= 15){
+        MOVE_INTERVAL = 100;
+        level.innerHTML = "Level 3";
+    } else if(snake.score >= 16 && snake.score <=20 ){
+        MOVE_INTERVAL = 85;
+        level.innerHTML = "Level 4";
+    } else if(snake.score >= 21){
+        MOVE_INTERVAL = 50;
+        level.innerHTML = "Level 5";
+    }
+    else {
+        MOVE_INTERVAL = 150;
     }
 }
 
