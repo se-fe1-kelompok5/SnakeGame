@@ -10,6 +10,7 @@ const DIRECTION = {
     DOWN: 3,
 }
 
+
 var MOVE_INTERVAL = 150;
 
 function initPosition() {
@@ -46,6 +47,7 @@ let apple = {
     color: "red",
     position: initPosition(),
 }
+//menambah 2 buah
 let apple2 = {
     color: "red",
     position: initPosition(),
