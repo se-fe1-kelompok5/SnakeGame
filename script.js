@@ -221,33 +221,23 @@ function move(snake) {
 }
 
 // fungsi leveling
-// default kecepatan adalah 150 dan akan berkurang 30 seiring bertambah level
+// default kecepatan adalah 150 dan akan berkurang 25 seiring bertambah level
 function leveling(snake){
     // mengambil id dari nomor level
     let level;
     level = document.getElementById("level");
-
-    // mengambil id speed
-    let speedTeks;
-    speedTeks = document.getElementById("kecepatan");
-
-    // membuat level
     if(snake.score >= 6 && snake.score <=10){
-        MOVE_INTERVAL = 120;
+        MOVE_INTERVAL = 125;
         level.innerHTML = "Level 2";
-        speedTeks.innerHTML = MOVE_INTERVAL;
     } else if(snake.score >= 11 && snake.score <= 15){
-        MOVE_INTERVAL = 90;
+        MOVE_INTERVAL = 100;
         level.innerHTML = "Level 3";
-        speedTeks.innerText = MOVE_INTERVAL;
     } else if(snake.score >= 16 && snake.score <=20 ){
-        MOVE_INTERVAL = 60;
+        MOVE_INTERVAL = 85;
         level.innerHTML = "Level 4";
-        speedTeks.innerText = MOVE_INTERVAL;
     } else if(snake.score >= 21){
-        MOVE_INTERVAL = 30;
+        MOVE_INTERVAL = 50;
         level.innerHTML = "Level 5";
-        speedTeks.innerText = MOVE_INTERVAL;
     }
     else {
         MOVE_INTERVAL = 150;
