@@ -135,7 +135,7 @@ function eat(snake, apples,hearts) {
             snake.body.push({x: snake.head.x, y: snake.head.y});
         }
     }
-    //nambah makan hati
+    //nambah makan hati 1 
     for (let i = 0; i < hearts.length; i++) {
         let heart = hearts[i];
         if (snake.head.x == heart.position.x && snake.head.y == heart.position.y) {
@@ -221,23 +221,33 @@ function move(snake) {
 }
 
 // fungsi leveling
-// default kecepatan adalah 150 dan akan berkurang 25 seiring bertambah level
+// default kecepatan adalah 150 dan akan berkurang 30 seiring bertambah level
 function leveling(snake){
     // mengambil id dari nomor level
     let level;
     level = document.getElementById("level");
+
+    // mengambil id speed
+    let speedTeks;
+    speedTeks = document.getElementById("kecepatan");
+
+    // membuat level
     if(snake.score >= 6 && snake.score <=10){
-        MOVE_INTERVAL = 125;
+        MOVE_INTERVAL = 120;
         level.innerHTML = "Level 2";
+        speedTeks.innerHTML = MOVE_INTERVAL;
     } else if(snake.score >= 11 && snake.score <= 15){
-        MOVE_INTERVAL = 100;
+        MOVE_INTERVAL = 90;
         level.innerHTML = "Level 3";
+        speedTeks.innerText = MOVE_INTERVAL;
     } else if(snake.score >= 16 && snake.score <=20 ){
-        MOVE_INTERVAL = 85;
+        MOVE_INTERVAL = 60;
         level.innerHTML = "Level 4";
+        speedTeks.innerText = MOVE_INTERVAL;
     } else if(snake.score >= 21){
-        MOVE_INTERVAL = 50;
+        MOVE_INTERVAL = 30;
         level.innerHTML = "Level 5";
+        speedTeks.innerText = MOVE_INTERVAL;
     }
     else {
         MOVE_INTERVAL = 150;
