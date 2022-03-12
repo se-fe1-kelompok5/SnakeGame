@@ -42,14 +42,20 @@ function initSnake(color) {
 }
 let snake1 = initSnake("purple");
 
-let apple = {
+//tambah apple
+let apples = [{
     color: "red",
     position: initPosition(),
-}
-let apple2 = {
-    color: "red",
+},
+{
+    color: "green",
     position: initPosition(),
-}
+}]
+//tambah nyawa
+let hearts = [{
+    color: "pink",
+    position: initPosition(),
+}]
 
 function drawCell(ctx, x, y, color) {
     ctx.fillStyle = color;
@@ -79,12 +85,27 @@ function draw() {
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         
         drawCell(ctx, snake1.head.x, snake1.head.y, snake1.color);
+        //memanjangakan badan
         for (let i = 1; i < snake1.body.length; i++) {
             drawCell(ctx, snake1.body[i].x, snake1.body[i].y, snake1.color);
         }
-        
-        drawCell(ctx, apple.position.x, apple.position.y, apple.color);
-        drawCell(ctx, apple2.position.x, apple2.position.y, apple2.color);
+
+        //aplle
+        for (let i = 0; i < apples.length; i++) {
+            let apple = apples[i];
+
+            // DrawImage apple dan gunakan image id:
+            var img = document.getElementById("apple");
+            ctx.drawImage(img, apple.position.x * CELL_SIZE, apple.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+        }
+
+        //hati
+        for(let i = 0; i < hearts.length; i++){
+            let heart = hearts[i];
+
+            var img1 = document.getElementById("heart");
+            ctx.drawImage(img1, heart.position.x * CELL_SIZE, heart.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE); 
+        }
 
         drawScore(snake1);
     }, REDRAW_INTERVAL);
@@ -105,50 +126,53 @@ function teleport(snake) {
     }
 }
 
-function eat(snake, apple) {
-    if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
-        apple.position = initPosition();
-        snake.score++;
-        snake.body.push({x: snake.head.x, y: snake.head.y});
+function eat(snake, apples,hearts) {
+    for (let i = 0; i < apples.length; i++) {
+        let apple = apples[i];
+        if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
+            apple.position = initPosition();
+            snake.score++;
+            snake.body.push({x: snake.head.x, y: snake.head.y});
+        }
+    }
+    //nambah makan hati
+    for (let i = 0; i < hearts.length; i++) {
+        let heart = hearts[i];
+        if (snake.head.x == heart.position.x && snake.head.y == heart.position.y) {
+            heart.position = initPosition();
+            snake.score++;
+            heart.score++;
+            snake.body.push({x: snake.head.x, y: snake.head.y});
+        }
     }
 }
-function eat(snake, apple2) {
-    if (snake.head.x == apple2.position.x && snake.head.y == apple2.position.y) {
-        apple2.position = initPosition();
-        snake.score++;
-        snake.body.push({x: snake.head.x, y: snake.head.y});
-    }
-}
+
 
 function moveLeft(snake) {
     snake.head.x--;
     teleport(snake);
-    eat(snake, apple);
-    eat(snake, apple2);
+    eat(snake, apples,hearts);
     leveling(snake);
 }
 
 function moveRight(snake) {
     snake.head.x++;
     teleport(snake);
-    eat(snake, apple);
-    eat(snake, apple2);
+    eat(snake, apples,hearts);
     leveling(snake);
 }
 
 function moveDown(snake) {
     snake.head.y++;
     teleport(snake);
-    eat(snake, apple);
-    eat(snake, apple2);
+    eat(snake, apples,hearts);
     leveling(snake);
 }
 
 function moveUp(snake) {
     snake.head.y--;
     teleport(snake);
-    eat(snake, apple);
-    eat(snake, apple2);
+    eat(snake, apples,hearts);
     leveling(snake);
 }
 
