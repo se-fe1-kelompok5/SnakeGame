@@ -4,10 +4,17 @@
         <script type="text/javascript" src="script.js"></script>
     <body onload="draw();">
         <h1>Snake</h1>
-        <h1 id="level">Level 1</h1>
+        <h1 id="level">Level 1 <br>
+        <!-- canvas nyawa -->
+        <canvas id="nyawa" width="600" height="20" ></canvas>
+        </h1>
+        <!-- apel -->
         <img id="apple" style="display: none;" width="20" height="20" src="Asset/apel.png" alt="apple">
+        <!-- kepala -->
         <img id="kepala" style="display: none;" width="20" height="20" src="Asset/kepala.png" alt="kepala">
-        <img id="heart" style="display: none;" width="20" height="20" src="Asset/hati.png" alt="Heart">
+        <!-- heart -->
+        <img id="heart" id="heart" style="display: none;" width="20" height="20" src="Asset/hati.png" alt="Heart">
+        <!-- board -->
         <canvas id="snakeBoard" width="400" height="400" style="border:1px solid #000000;"></canvas>
         <div id="keterangan">
             <h3>Skor</h3>
