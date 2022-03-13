@@ -102,9 +102,9 @@ function drawScore(snake) {
     let scoreCtx = scoreCanvas.getContext("2d");
 
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    scoreCtx.font = "30px Arial";
+    scoreCtx.font = "18px Arial";
     scoreCtx.fillStyle = snake.color
-    scoreCtx.fillText(score, 10, scoreCanvas.scrollHeight / 2);
+    scoreCtx.fillText(score, 1, scoreCanvas.scrollHeight / 1);
 }
 
 // fungsi leveling
@@ -113,6 +113,7 @@ function leveling(){
     if(score % 5 === 0){
         MOVE_INTERVAL = MOVE_INTERVAL - 30;
         level = level + 1;
+        console.log("level :" + level)
 
         // update level
         let teksLevel;
