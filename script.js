@@ -35,6 +35,14 @@ function initHeadAndBody() {
     }
 }
 
+// audio eat
+let audioEat = new Audio();
+audioEat.src = "./Asset/makan.mp3";
+
+// audio loose
+let audioLoose = new Audio();
+audioLoose.src = "./Asset/lose.mp3";
+
 function initDirection() {
     return Math.floor(Math.random() * 4);
 }
@@ -144,9 +152,13 @@ function draw() {
         }
 
         //hati
-        for(let i = 0; i < hearts.length; i++){
-            let heart = hearts[i];
+        // for(let i = 0; i < hearts.length; i++){
+        //     let heart = hearts[i];
 
+        //     var img1 = document.getElementById("heart");
+        //     ctx.drawImage(img1, heart.position.x * CELL_SIZE, heart.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE); 
+        // }
+        if(hearts.appear){
             var img1 = document.getElementById("heart");
             ctx.drawImage(img1, heart.position.x * CELL_SIZE, heart.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE); 
         }
@@ -154,15 +166,6 @@ function draw() {
         drawScore(snake1);
     }, REDRAW_INTERVAL);
 }
-
-// // membuat penghalang
-// function penghalang2(){
-//     var canvas = document.getElementById("snakeBoard");
-//     var ctx = canvas.getContext("2d");
-//     ctx.fillStyle = "#000000";
-//     var halangan = ctx.fillRect(60, 100, 20, 200);
-// }
-   
 
 function teleport(snake) {
     if (snake.head.x < 0) {
@@ -178,11 +181,11 @@ function teleport(snake) {
         snake.head.y = 0;
     }
 }
-
 function eat(snake, apples,hearts) {
     for (let i = 0; i < apples.length; i++) {
         let apple = apples[i];
         if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
+            audioEat.play();
             apple.position = initPosition();
             score++;
             leveling();
@@ -193,6 +196,7 @@ function eat(snake, apples,hearts) {
     for (let i = 0; i < hearts.length; i++) {
         let heart = hearts[i];
         if (snake.head.x == heart.position.x && snake.head.y == heart.position.y) {
+            audioEat.play();
             heart.position = initPosition();
             life++;
             updateHeart();
@@ -241,9 +245,14 @@ function checkCollision(snakes) {
             }
         }
     }
-    if (isCollide) {
+    if (isCollide && life > 1) {
+        life--;
+        audioLoose.play();
+        updateHeart();
+    } else if(isCollide && life === 1){
+        audioLoose.play();
         alert("Game over");
-        snake1 = initSnake("purple");
+        location.reload();
     }
     return isCollide;
 }
