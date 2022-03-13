@@ -14,6 +14,8 @@ var MOVE_INTERVAL = 150;
 let level = 1;
 let life = 3;
 let score = 0;
+
+// gambar hati
 let gambarHati = new Image();
 gambarHati.src = "./Asset/hati.png";
 
@@ -44,7 +46,7 @@ function initSnake(color) {
         direction: initDirection(),
     }
 }
-let snake1 = initSnake("purple");
+let snake1 = initSnake();
 
 //tambah apple
 let apples = [{
@@ -123,10 +125,13 @@ function draw() {
 
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         
-        drawCell(ctx, snake1.head.x, snake1.head.y, snake1.color);
+        // kepala
+        var imgKepala = document.getElementById("kepala");
+        drawImagePixel(ctx, snake1.head.x, snake1.head.y, imgKepala);
         //memanjangakan badan
         for (let i = 1; i < snake1.body.length; i++) {
-            drawCell(ctx, snake1.body[i].x, snake1.body[i].y, snake1.color);
+            var imgBadan = document.getElementById("body");
+            drawImagePixel(ctx, snake1.body[i].x, snake1.body[i].y, imgBadan);
         }
 
         //aplle
