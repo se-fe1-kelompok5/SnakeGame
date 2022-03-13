@@ -189,7 +189,7 @@ function eat(snake, apples,hearts) {
             snake.body.push({x: snake.head.x, y: snake.head.y});
         }
     }
-    //nambah makan hati
+    //nambah makan hati 1 
     for (let i = 0; i < hearts.length; i++) {
         let heart = hearts[i];
         if (snake.head.x == heart.position.x && snake.head.y == heart.position.y) {
