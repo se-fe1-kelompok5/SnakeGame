@@ -1,0 +1,55 @@
+body{
+    font-family: Arial;
+    margin-top: 2%;
+    background-color: #EEEEEE;
+}
+h1{
+    text-align: center;
+}
+.level{
+    text-decoration: bold;
+}
+.snakeBoard{
+    background: white;
+}
+.snakeBoard{
+    background-color: aqua;
+
+}
+.penunjuk{
+    position: absolute;
+    top: 60%;
+    left: 250;
+    transform: translateY(-50%);
+    padding: 1rem;
+    background-color: #E6D5B8;
+    text-align: center;
+    color: #fff;
+    border-radius: 20px;
+    user-select: none;
+}
+.ttunjuk
+{
+    
+    color: #cc6f23;
+}
+.ini{
+    border-radius: 20px;
+    background: url(back.jpg);
+    background-size: cover;
+}
+
+table{
+    border-radius: 20px;
+    color: #fd8f4a;
+}
+
+
+.kedua{
+    color: #FFAB76;
+}
+
+.judul{
+    color: #FFAB76;
+    background-color: #F0F0F0;
+}
