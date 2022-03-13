@@ -1,7 +1,5 @@
 const CELL_SIZE = 20;
 const CANVAS_SIZE = 400;
-const CANVAS_SIZE_NYAWA = 400;
-const CELL_SIZE_NYAWA = 20;
 const REDRAW_INTERVAL = 50;
 const WIDTH = CANVAS_SIZE / CELL_SIZE;
 const HEIGHT = CANVAS_SIZE / CELL_SIZE;
@@ -13,6 +11,11 @@ const DIRECTION = {
 }
 
 var MOVE_INTERVAL = 150;
+let level = 1;
+let life = 3;
+let score = 0;
+let gambarHati = new Image();
+gambarHati.src = "./Asset/hati.png";
 
 function initPosition() {
     return {
@@ -39,8 +42,6 @@ function initSnake(color) {
         color: color,
         ...initHeadAndBody(),
         direction: initDirection(),
-        nyawa: 3,
-        score: 0,
     }
 }
 let snake1 = initSnake("purple");
@@ -54,15 +55,31 @@ let apples = [{
     color: "green",
     position: initPosition(),
 }]
+
 //tambah nyawa
 let hearts = [{
     color: "pink",
+    appear: false,
     position: initPosition(),
 }]
+
+function updateHeart(){
+    let lifeElement = document.getElementById('nyawa');
+	lifeElement.innerHTML = '';
+	for (var i = 0; i < life; i++) {
+		let node = document.createElement('IMG');
+		node.src = './Asset/hati.png';
+		lifeElement.appendChild(node);
+	}
+}
 
 function drawCell(ctx, x, y, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+}
+
+function drawImagePixel(ctx, x, y, img) {
+	ctx.drawImage(img, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 }
 
 function drawScore(snake) {
@@ -77,21 +94,25 @@ function drawScore(snake) {
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     scoreCtx.font = "30px Arial";
     scoreCtx.fillStyle = snake.color
-    scoreCtx.fillText(snake.score, 10, scoreCanvas.scrollHeight / 2);
+    scoreCtx.fillText(score, 10, scoreCanvas.scrollHeight / 2);
 }
 
-// GAMBAR NYAWA
-function gambarNyawa(snake){
-    let heart = document.getElementById("heart");
-    let canvasNyawa = document.getElementById("nyawa");
-    let nyawaCtx = canvasNyawa.getContext("2d");
-    nyawaCtx.clearRect(0, 0, CANVAS_SIZE_NYAWA, CELL_SIZE_NYAWA);
-    let lebar = 1;
-    let tinggi = 1;
-    let jmlhNyawa = snake.nyawa;
-    for(let i=0; i<jmlhNyawa; i++){
-        nyawaCtx.drawImage(heart, lebar, tinggi, 20, 20);
-        lebar = lebar + 29;
+// fungsi leveling
+// default kecepatan adalah 150 dan akan berkurang 30 seiring bertambah level
+function leveling(){
+    if(score % 5 === 0){
+        MOVE_INTERVAL = MOVE_INTERVAL - 30;
+        level = level + 1;
+
+        // update level
+        let teksLevel;
+        teksLevel = document.getElementById("level");
+        teksLevel.innerText = level;
+        
+        // update speed
+        let teksSpeed;
+        teksSpeed = document.getElementById("kecepatan");
+        teksSpeed.innerText = MOVE_INTERVAL;
     }
 }
 
@@ -125,23 +146,17 @@ function draw() {
             ctx.drawImage(img1, heart.position.x * CELL_SIZE, heart.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE); 
         }
 
-        //penghalang
-        // if (snake1.body.length > 6 && snake1.body.length <= 10){
-        //     penghalang2();
-        // }
-
         drawScore(snake1);
-        gambarNyawa(snake1);
     }, REDRAW_INTERVAL);
 }
 
-// membuat penghalang
-function penghalang2(){
-    var canvas = document.getElementById("snakeBoard");
-    var ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#000000";
-    var halangan = ctx.fillRect(60, 100, 20, 200);
-}
+// // membuat penghalang
+// function penghalang2(){
+//     var canvas = document.getElementById("snakeBoard");
+//     var ctx = canvas.getContext("2d");
+//     ctx.fillStyle = "#000000";
+//     var halangan = ctx.fillRect(60, 100, 20, 200);
+// }
    
 
 function teleport(snake) {
@@ -164,7 +179,8 @@ function eat(snake, apples,hearts) {
         let apple = apples[i];
         if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
             apple.position = initPosition();
-            snake.score++;
+            score++;
+            leveling();
             snake.body.push({x: snake.head.x, y: snake.head.y});
         }
     }
@@ -173,9 +189,8 @@ function eat(snake, apples,hearts) {
         let heart = hearts[i];
         if (snake.head.x == heart.position.x && snake.head.y == heart.position.y) {
             heart.position = initPosition();
-            snake.score++;
-            heart.score++;
-            snake.body.push({x: snake.head.x, y: snake.head.y});
+            life++;
+            updateHeart();
         }
     }
 }
@@ -185,28 +200,28 @@ function moveLeft(snake) {
     snake.head.x--;
     teleport(snake);
     eat(snake, apples,hearts);
-    leveling(snake);
+    //leveling(snake);
 }
 
 function moveRight(snake) {
     snake.head.x++;
     teleport(snake);
     eat(snake, apples,hearts);
-    leveling(snake);
+    //leveling(snake);
 }
 
 function moveDown(snake) {
     snake.head.y++;
     teleport(snake);
     eat(snake, apples,hearts);
-    leveling(snake);
+    //leveling(snake);
 }
 
 function moveUp(snake) {
     snake.head.y--;
     teleport(snake);
     eat(snake, apples,hearts);
-    leveling(snake);
+    //leveling(snake);
 }
 
 function checkCollision(snakes) {
@@ -253,41 +268,6 @@ function move(snake) {
     }
 }
 
-
-
-// fungsi leveling
-// default kecepatan adalah 150 dan akan berkurang 30 seiring bertambah level
-function leveling(snake){
-    // mengambil id dari nomor level
-    let level;
-    level = document.getElementById("level");
-
-    // mengambil id speed
-    let speedTeks;
-    speedTeks = document.getElementById("kecepatan");
-
-    // membuat level
-    if(snake.score <=5){
-        // kecepatan
-        MOVE_INTERVAL = 150;
-    } else if(snake.score >= 6 && snake.score <=10){
-        MOVE_INTERVAL = 120;
-        level.innerHTML = "Level 2";
-        speedTeks.innerHTML = MOVE_INTERVAL;
-    } else if(snake.score >= 11 && snake.score <= 15){
-        MOVE_INTERVAL = 90;
-        level.innerHTML = "Level 3";
-        speedTeks.innerText = MOVE_INTERVAL;
-    } else if(snake.score >= 16 && snake.score <=20 ){
-        MOVE_INTERVAL = 60;
-        level.innerHTML = "Level 4";
-        speedTeks.innerText = MOVE_INTERVAL;
-    } else if(snake.score >= 21){
-        MOVE_INTERVAL = 30;
-        level.innerHTML = "Level 5";
-        speedTeks.innerText = MOVE_INTERVAL;
-    }
-} 
 
 function moveBody(snake) {
     snake.body.unshift({ x: snake.head.x, y: snake.head.y });
