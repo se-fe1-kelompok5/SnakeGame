@@ -3,12 +3,24 @@
     </head>
         <script type="text/javascript" src="script.js"></script>
     <body onload="draw();">
-        <h1>Snake</h1>
-        <h1 id="level">Level 1</h1>
+        <!-- apel -->
         <img id="apple" style="display: none;" width="20" height="20" src="Asset/apel.png" alt="apple">
         <img id="kepala" style="display: none;" width="20" height="20" src="Asset/kepala.png" alt="kepala">
-        <img id="heart" style="display: none;" width="20" height="20" src="Asset/hati.png" alt="Heart">
-        <canvas id="snakeBoard" width="400" height="400" style="border:1px solid #000000;"></canvas>
+        <!-- body -->
+        <img id="body" style="display: none;" width="20" height="20" src="Asset/badan.png" alt="body">
+        <!-- heart -->
+        <img id="heart" id="heart" style="display: none;" width="20" height="20" src="Asset/hati.png" alt="Heart">
+        <div>
+            <h1>Snake</h1>
+            <h1>Level <span id="level">1</span></h1>
+            <!-- board -->
+            <canvas id="snakeBoard" width="400" height="400" style="border:1px solid #000000;"></canvas>
+            <div id="nyawa" style="display: flex; gap: 4px; position: absolute; top: 100px; left: 5px; width: 10px;">
+                <img src="./Asset/hati.png" alt="hati">
+                <img src="./Asset/hati.png" alt="hati">
+                <img src="./Asset/hati.png" alt="hati">
+            </div>
+        </div>
         <div id="keterangan">
             <h3>Skor</h3>
             <canvas id="score1Board" width="100" height="100" style="border:1px solid #000000;"></canvas>
