@@ -80,6 +80,7 @@ function updateHeart(){
 		let node = document.createElement('IMG');
 		node.src = './Asset/hati.png';
 		lifeElement.appendChild(node);
+
 	}
 }
 
@@ -143,7 +144,7 @@ function draw() {
             drawImagePixel(ctx, snake1.body[i].x, snake1.body[i].y, imgBadan);
         }
 
-        //aplle
+        //apple
         for (let i = 0; i < apples.length; i++) {
             let apple = apples[i];
 
@@ -153,11 +154,13 @@ function draw() {
         }
 
         //hati
+    if (hearts.appear){
         for(let i = 0; i < hearts.length; i++){
             let heart = hearts[i];
 
             var img1 = document.getElementById("heart");
             ctx.drawImage(img1, heart.position.x * CELL_SIZE, heart.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE); 
+            }
         }
 
         drawScore(snake1);
@@ -188,6 +191,9 @@ function eat(snake, apples,hearts) {
             score++;
             leveling();
             snake.body.push({x: snake.head.x, y: snake.head.y});
+            hearts.appear = primeNumber(score);
+		    console.log(hearts.appear);
+		    hearts.position = initPosition();
         }
     }
     //nambah makan hati 1 
@@ -201,6 +207,20 @@ function eat(snake, apples,hearts) {
         }
     }
 }
+
+//bilangan prima
+function primeNumber(score){
+    if (score == 1){
+        return false;
+    }
+
+    for (let i = 2; i < score; i++) {
+		if (score % i == 0) {
+			return false;
+		}
+	}
+	return true;
+} 
 
 
 function moveLeft(snake) {
