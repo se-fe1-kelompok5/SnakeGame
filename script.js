@@ -152,13 +152,9 @@ function draw() {
         }
 
         //hati
-        // for(let i = 0; i < hearts.length; i++){
-        //     let heart = hearts[i];
+        for(let i = 0; i < hearts.length; i++){
+            let heart = hearts[i];
 
-        //     var img1 = document.getElementById("heart");
-        //     ctx.drawImage(img1, heart.position.x * CELL_SIZE, heart.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE); 
-        // }
-        if(hearts.appear){
             var img1 = document.getElementById("heart");
             ctx.drawImage(img1, heart.position.x * CELL_SIZE, heart.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE); 
         }
@@ -181,6 +177,7 @@ function teleport(snake) {
         snake.head.y = 0;
     }
 }
+
 function eat(snake, apples,hearts) {
     for (let i = 0; i < apples.length; i++) {
         let apple = apples[i];
