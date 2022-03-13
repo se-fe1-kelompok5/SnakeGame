@@ -35,6 +35,14 @@ function initHeadAndBody() {
     }
 }
 
+// audio eat
+let audioEat = new Audio();
+audioEat.src = "./Asset/makan.mp3";
+
+// audio loose
+let audioLoose = new Audio();
+audioLoose.src = "./Asset/lose.mp3";
+
 function initDirection() {
     return Math.floor(Math.random() * 4);
 }
@@ -94,9 +102,9 @@ function drawScore(snake) {
     let scoreCtx = scoreCanvas.getContext("2d");
 
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    scoreCtx.font = "30px Arial";
+    scoreCtx.font = "18px Arial";
     scoreCtx.fillStyle = snake.color
-    scoreCtx.fillText(score, 10, scoreCanvas.scrollHeight / 2);
+    scoreCtx.fillText(score, 1, scoreCanvas.scrollHeight / 1);
 }
 
 // fungsi leveling
@@ -105,6 +113,7 @@ function leveling(){
     if(score % 5 === 0){
         MOVE_INTERVAL = MOVE_INTERVAL - 30;
         level = level + 1;
+        console.log("level :" + level)
 
         // update level
         let teksLevel;
@@ -155,15 +164,6 @@ function draw() {
     }, REDRAW_INTERVAL);
 }
 
-// // membuat penghalang
-// function penghalang2(){
-//     var canvas = document.getElementById("snakeBoard");
-//     var ctx = canvas.getContext("2d");
-//     ctx.fillStyle = "#000000";
-//     var halangan = ctx.fillRect(60, 100, 20, 200);
-// }
-   
-
 function teleport(snake) {
     if (snake.head.x < 0) {
         snake.head.x = CANVAS_SIZE / CELL_SIZE - 1;
@@ -183,6 +183,7 @@ function eat(snake, apples,hearts) {
     for (let i = 0; i < apples.length; i++) {
         let apple = apples[i];
         if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
+            audioEat.play();
             apple.position = initPosition();
             score++;
             leveling();
@@ -193,6 +194,7 @@ function eat(snake, apples,hearts) {
     for (let i = 0; i < hearts.length; i++) {
         let heart = hearts[i];
         if (snake.head.x == heart.position.x && snake.head.y == heart.position.y) {
+            audioEat.play();
             heart.position = initPosition();
             life++;
             updateHeart();
@@ -241,9 +243,14 @@ function checkCollision(snakes) {
             }
         }
     }
-    if (isCollide) {
+    if (isCollide && life > 1) {
+        life--;
+        audioLoose.play();
+        updateHeart();
+    } else if(isCollide && life === 1){
+        audioLoose.play();
         alert("Game over");
-        snake1 = initSnake("purple");
+        location.reload();
     }
     return isCollide;
 }

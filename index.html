@@ -1,31 +1,107 @@
 <html>
     <head>
     </head>
+    <link href="Asset/skin.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="script.js"></script>
     <body onload="draw();">
+ 
         <!-- apel -->
         <img id="apple" style="display: none;" width="20" height="20" src="Asset/apel.png" alt="apple">
+        <!-- kepala -->
         <img id="kepala" style="display: none;" width="20" height="20" src="Asset/kepala.png" alt="kepala">
         <!-- body -->
         <img id="body" style="display: none;" width="20" height="20" src="Asset/badan.png" alt="body">
         <!-- heart -->
         <img id="heart" id="heart" style="display: none;" width="20" height="20" src="Asset/hati.png" alt="Heart">
         <div>
-            <h1>Snake</h1>
-            <h1>Level <span id="level">1</span></h1>
-            <!-- board -->
-            <canvas id="snakeBoard" width="400" height="400" style="border:1px solid #000000;"></canvas>
-            <div id="nyawa" style="display: flex; gap: 4px; position: absolute; top: 100px; left: 5px; width: 10px;">
-                <img src="./Asset/hati.png" alt="hati">
-                <img src="./Asset/hati.png" alt="hati">
-                <img src="./Asset/hati.png" alt="hati">
+            <center>
+            <table class="judul" width="400">
+                <tr>
+                    <th>
+                        <h1>Snake Game</h1>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <p><b>FE - Kelompok5</b></p>
+
+                    </th>
+                </tr>
+            </table>
+            
+            
+                
+            </center>
+            <br>
+           
+            <center>
+            <table border="0" width="400" >
+                
+                <tr class="tabel1">
+                    <td >
+                        <center>
+                            <span>Level <span clas="kedua" id="level">1</span></span>
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <span>Skor : </span>
+                            <canvas id="score1Board" width="20" height="20" solid=#000000;"></canvas>
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <span>Speed : </span>
+                            <span id="kecepatan">150</span>
+                        </center>
+                    </td>
+                </tr>
+                <td colspan="3">
+                    &nbsp;
+                </td>
+            
+                <tr>
+                    <td colspan="3">
+                        <div id="nyawa" >
+                        <img src="./Asset/hati.png" alt="hati">
+                        <img src="./Asset/hati.png" alt="hati">
+                        <img src="./Asset/hati.png" alt="hati">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+                
+                <!-- board -->
+                
+                    <table >
+                        <tr>
+                            <td>
+                                <canvas class="ini" id="snakeBoard" width="400" height="400" style="border:0px solid #000000;"><div ></div></canvas>
+
+                            </td>
+                        </tr>
+                    </table>
+                
             </div>
-        </div>
-        <div id="keterangan">
-            <h3>Skor</h3>
-            <canvas id="score1Board" width="100" height="100" style="border:1px solid #000000;"></canvas>
-            <h3>Speed</h3>
-            <h5 id="kecepatan">150</h5>
-        </div>
+        </center>
+        
+        <div class="penunjuk">
+        <table class="ttunjuk" width=auto>
+            <tr>
+                <td colspan="3"><center><h3>Control</h3></center></td>
+            </tr>
+            <tr>
+                <td colspan="3"><center>↑</center></td>
+            </tr>
+            <tr>
+                <td>←</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>→</td>
+            </tr>
+            <tr>
+                <td colspan="3"><center>↓</center></td>
+            </tr>
+        </table>
+    </b>
     </body>
 </html>
